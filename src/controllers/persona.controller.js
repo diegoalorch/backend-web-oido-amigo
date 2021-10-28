@@ -57,3 +57,4 @@ export const readPersona = async(req, res) => {
 //         console.log(e);
 //         return res.status(500).json('Internal Server error...!');
 //     }
+// }
