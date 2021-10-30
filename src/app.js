@@ -3,6 +3,7 @@ import morgan from 'morgan'
 import personaRoutes from './routes/persona.routes'
 import pacienteRoutes from './routes/paciente.routes'
 import psicologosRoutes from './routes/psicologos.routes'
+import userRoutes from './routes/user.routes'
 
 const app = express();
 var cors = require('cors');
@@ -22,5 +23,6 @@ app.get('/', function(req, res, next) {
 app.use('/api/auth/personas', personaRoutes); // PERSONA
 app.use('/api/auth/paciente', pacienteRoutes); // PACIENTE
 app.use('/api/auth/psicologos', psicologosRoutes); // PSICOLOGOS
+app.use('/api/auth/users', userRoutes); // Usuarios
 
 export default app;
