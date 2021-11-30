@@ -1,8 +1,10 @@
-import { pool } from '../database'
+const pool = require('../database')
 // const helpers = require('../libs/helpers');
 
+const pacienteCtr = {}
+
 // LISTAR TODAS LAS PERSONAS NO ASIGNADAS
-export const readAllPaciente = async(req, res) => {
+pacienteCtr.readAllPaciente = async(req, res) => {
     try {
         const response = await pool.query('select pa.idpaciente, p.nombres, p.apellidos, p.telefono, p.pais from paciente pa, persona p where pa.idpersona=p.idpersona and idpsicologo is null order by nombres asc');
         return res.status(200).json(response.rows);
@@ -13,7 +15,7 @@ export const readAllPaciente = async(req, res) => {
 }
 
 // LISTAR TODAS LAS PERSONAS ASIGNADAS
-export const readAsignadoPaciente = async(req, res) => {
+pacienteCtr.readAsignadoPaciente = async(req, res) => {
     try {
         const response = await pool.query('select pa.idpaciente, p.nombres, p.apellidos, p.telefono, p.pais, pa.motivoconsulta from paciente pa, persona p where pa.idpersona=p.idpersona and idpsicologo is not null order by nombres asc');
         return res.status(200).json(response.rows);
@@ -24,7 +26,7 @@ export const readAsignadoPaciente = async(req, res) => {
 }
 
 // LISTAR Paciente POR ID
-export const readPaciente = async(req, res) => {
+pacienteCtr.readPaciente = async(req, res) => {
     try {
         const id = parseInt(req.params.id);
         const response = await pool.query('select pa.idpaciente, ps.idpsicologo, p.nombres, p.apellidos, p.telefono, p.pais, pa.motivoconsulta from paciente pa, persona p, psicologos ps where idpaciente=$1 and pa.idpersona=p.idpersona and pa.idpsicologo = ps.idpsicologo', [id]);
@@ -36,7 +38,7 @@ export const readPaciente = async(req, res) => {
 }
 
 // CREAR CONSULTA PACIENTE
-export const createPaciente = async(req, res) => {
+pacienteCtr.createPaciente = async(req, res) => {
     try {
         const { nombres, apellidos, telefono, pais, motivoconsulta, idpersona } = req.body;
         const result = await pool.query('insert into persona(nombres, apellidos, telefono, pais) values($1,$2,$3,$4) returning *', [nombres, apellidos, telefono, pais]); // returning devuelve todo los datos
@@ -49,7 +51,7 @@ export const createPaciente = async(req, res) => {
 }
 
 // DERIVAR PACIENTE
-export const updatePacienteDerivar = async(req, res) => {
+pacienteCtr.updatePacienteDerivar = async(req, res) => {
     try {
         const id = parseInt(req.params.id);
         const { idpsicologo } = req.body;
@@ -63,7 +65,7 @@ export const updatePacienteDerivar = async(req, res) => {
 }
 
 // ELIMINAR CONSULTA
-export const eliminarConsulta = async(req, res) => {
+pacienteCtr.eliminarConsulta = async(req, res) => {
     try {
         const id = parseInt(req.params.id);
         await pool.query('delete from paciente where idpaciente=$1', [id]);
@@ -74,3 +76,5 @@ export const eliminarConsulta = async(req, res) => {
         return res.status(500).json('Internal Server error...!');
     }
 }
+
+module.exports = pacienteCtr;

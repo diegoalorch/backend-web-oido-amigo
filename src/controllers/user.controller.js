@@ -1,7 +1,10 @@
-import {pool} from '../database'
+const pool = require('../database')
 const helpers = require('../libs/helpers');
 
-export const createUser = async(req, res)=>{
+const userCtr = {}
+
+userCtr.createUser = async(req, res)=>{
+
     try {
         const{ username, password, idrol, idpsicologo} = req.body;
         const password2 = await helpers.encryptPassword(password);
@@ -12,4 +15,8 @@ export const createUser = async(req, res)=>{
         console.log(e);
         return res.status(500).json('Internal Server error...!');
     }
+
 }
+module.exports = userCtr;
+
+

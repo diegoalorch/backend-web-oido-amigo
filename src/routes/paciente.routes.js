@@ -1,8 +1,8 @@
-import { Router } from 'express'
+const express = require('express')
 
-const router = Router();
+const router = express.Router();
 
-import * as pacienteCtr from '../controllers/paciente.controller'
+const pacienteCtr = require('../controllers/paciente.controller')
 
 // const { checkToken } = require('../auth/token_validation');
 
@@ -14,4 +14,4 @@ router.put('/derivar-paciente/:id', pacienteCtr.updatePacienteDerivar); // Deriv
 router.delete('/eliminar-consulta/:id', pacienteCtr.eliminarConsulta); // Eliminar La Consulta
 
 
-export default router;
+module.exports = router;

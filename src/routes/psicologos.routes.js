@@ -1,8 +1,8 @@
-import { Router } from 'express'
+const express = require('express')
 
-const router = Router();
+const router = express.Router();
 
-import * as psicologosCtr from '../controllers/psicologos.controller'
+const psicologosCtr = require('../controllers/psicologos.controller')
 
 // const { checkToken } = require('../auth/token_validation');
 
@@ -12,4 +12,4 @@ router.get('/lista-psicologos-nom-apl/:id', psicologosCtr.buscarPsicologoID); //
 router.get('/lista-psicologos-select/:id', psicologosCtr.readPsicologoSelect); // Listar por selección del html
 router.post('/create', psicologosCtr.createPsicologo);//Crear Psicologo
 
-export default router;
+module.exports = router;

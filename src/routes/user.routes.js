@@ -1,13 +1,15 @@
-import { Router } from 'express'
 
-const router = Router();
+const express  = require('express') ;
 
-import * as userCtr from '../controllers/user.controller'
+const router = express.Router();
+
+const userCtr = require('../controllers/user.controller');
+
 const { checkTokenPsicologo } = require('../auth/token_validation');
 
 
 router.post('/create', userCtr.createUser);
 
 
+module.exports = router;
 
-export default router;

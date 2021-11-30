@@ -1,4 +1,5 @@
-import jw_decode from 'jwt-decode';
+
+const jw_decode = require('jwt-decode');
 const jwt = require('jsonwebtoken');
 const secret = "oido_amigo-secret-access-token";
 const refreshTokenSecret = "oido_amigo-refresh-secret-access-token";

@@ -1,8 +1,8 @@
-import { Router } from 'express'
+const express  = require('express')
 
-const router = Router();
+const router = express.Router();
 
-import * as personaCtr from '../controllers/persona.controller'
+const personaCtr = require('../controllers/persona.controller')
 
 // const { checkToken } = require('../auth/token_validation');
 
@@ -19,4 +19,4 @@ router.get('/:id', personaCtr.readPersona); // listar personas por id
 // router.post('/', personaCtr.createPersona);
 
 
-export default router;
+module.exports = router;

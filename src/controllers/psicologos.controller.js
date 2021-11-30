@@ -1,9 +1,10 @@
-import { pool } from '../database'
+const pool = require('../database');
 const helpers = require('../libs/helpers');
 // const helpers = require('../libs/helpers');
 
+const psicologosCtr = {}
 // LISTAR TODOS LOS PSICOLOGOS
-export const readAllPsicologos = async(req, res) => {
+psicologosCtr.readAllPsicologos = async(req, res) => {
     try {
         const response = await pool.query('select pe.nombres, pe.apellidos, pe.telefono, pe.correo, p.universidad, p.gradoacademico from psicologos p, persona pe where p.idpersona=pe.idpersona order by nombres asc');
         return res.status(200).json(response.rows);
@@ -14,7 +15,7 @@ export const readAllPsicologos = async(req, res) => {
 }
 
 //LISTA POR NOMBRE Y APELLIDO PSICOLOGOS
-export const readNomApePsicologos = async(req, res) => {
+psicologosCtr.readNomApePsicologos = async(req, res) => {
     try {
         const response = await pool.query('select p.idpsicologo, pe.nombres, pe.apellidos from psicologos p, persona pe where p.idpersona=pe.idpersona order by nombres asc');
         return res.status(200).json(response.rows);
@@ -25,7 +26,7 @@ export const readNomApePsicologos = async(req, res) => {
 }
 
 // Buscar y Listar por ID psicologo
-export const buscarPsicologoID = async(req, res) => {
+psicologosCtr.buscarPsicologoID = async(req, res) => {
     try {
         const id = parseInt(req.params.id);
         const response = await pool.query('select p.idpsicologo, pe.nombres, pe.apellidos, p.universidad, p.gradoacademico from psicologos p, persona pe where p.idpsicologo=$1 and p.idpersona=pe.idpersona', [id]);
@@ -37,7 +38,7 @@ export const buscarPsicologoID = async(req, res) => {
 }
 
 // LISTA DE COMPLETA CAMPOS DEL PSICOLOGO MODAL 2
-export const readPsicologoSelect = async(req, res) => {
+psicologosCtr.readPsicologoSelect = async(req, res) => {
     try {
         const id = parseInt(req.params.id);
         const response = await pool.query('select ps.idpsicologo, p.nombres, p.apellidos , p.correo, ps.universidad, ps.gradoacademico from psicologos ps, persona p where idpsicologo=$1 and ps.idpersona=p.idpersona', [id]);
@@ -48,7 +49,7 @@ export const readPsicologoSelect = async(req, res) => {
     }
 }
 
-export const createPsicologo = async(req, res)=>{
+psicologosCtr.createPsicologo = async(req, res)=>{
     try {
         const{ nombres, apellidos, dni, correo, telefono, direccion, pais, idpersona, universidad, gradoacademico, username, password, idrol, idpsicologo} = req.body;
         const result = await pool.query('insert into persona(nombres, apellidos, dni, correo, telefono, direccion, pais) values($1,$2,$3,$4,$5,$6,$7) returning *', [nombres, apellidos, dni, correo, telefono, direccion, pais]);
@@ -62,3 +63,5 @@ export const createPsicologo = async(req, res)=>{
         return res.status(500).json('Internal Server error...!');
     }
 }
+
+module.exports = psicologosCtr;
