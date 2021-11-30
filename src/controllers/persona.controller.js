@@ -1,8 +1,9 @@
-import { pool } from '../database'
-// const helpers = require('../libs/helpers');
+const pool = require('../database')
+
+const personaCtr = {}
 
 // LISTAR TODAS LAS PERSONAS
-export const readAllPersona = async(req, res) => {
+personaCtr.readAllPersona = async(req, res) => {
     try {
         const response = await pool.query('select *from persona');
         return res.status(200).json(response.rows);
@@ -13,7 +14,7 @@ export const readAllPersona = async(req, res) => {
 } 
 
 // LISTAR PERSONA POR ID
-export const readPersona = async(req, res) => {
+personaCtr.readPersona = async(req, res) => {
     try {
         const id = parseInt(req.params.id);
         const response = await pool.query('select *from persona where idpersona=$1', [id]);
@@ -23,6 +24,8 @@ export const readPersona = async(req, res) => {
         return res.status(500).json('Internal Server error...!');
     }
 }
+
+module.exports = personaCtr;
 // export const delPersona = async(req, res) => {
 //     try {
 //         const id = parseInt(req.params.id);

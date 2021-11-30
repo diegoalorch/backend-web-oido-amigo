@@ -1,6 +1,9 @@
-import express from 'express'
-import morgan from 'morgan'
-import personaRoutes from './routes/persona.routes'
+const express = require('express')
+const morgan = require('morgan')
+const personaRoutes = require('./routes/persona.routes')
+const userRoutes = require('./routes/user.routes')
+const psicologoRoutes = require('./routes/psicologo.routes')
+const authRoutes = require('./routes/auth.routes')
 
 const app = express();
 var cors = require('cors');
@@ -17,6 +20,11 @@ app.get('/', function(req, res, next) {
 // app.use('/api/auth', authRoutes);
 // app.use('/api/auth/users', userRoutes);
 
-app.use('/api/auth/personas', personaRoutes);
+app.use('/api/personas', personaRoutes);
+app.use('/api/psicologo', psicologoRoutes);
 
-export default app;
+
+app.use('/api/auth/users', userRoutes);
+app.use('/api/auth', authRoutes);
+
+module.exports = app;
