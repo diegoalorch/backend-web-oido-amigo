@@ -60,3 +60,4 @@ module.exports = personaCtr;
 //         console.log(e);
 //         return res.status(500).json('Internal Server error...!');
 //     }
+// }

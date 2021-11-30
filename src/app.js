@@ -5,6 +5,7 @@ const userRoutes = require('./routes/user.routes')
 const psicologoRoutes = require('./routes/psicologo.routes')
 const authRoutes = require('./routes/auth.routes')
 
+
 const app = express();
 var cors = require('cors');
 
@@ -22,7 +23,6 @@ app.get('/', function(req, res, next) {
 
 app.use('/api/personas', personaRoutes);
 app.use('/api/psicologo', psicologoRoutes);
-
 
 app.use('/api/auth/users', userRoutes);
 app.use('/api/auth', authRoutes);
