@@ -27,7 +27,7 @@ export const readAsignadoPaciente = async(req, res) => {
 export const readPaciente = async(req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const response = await pool.query('select pa.idpaciente, p.nombres, p.apellidos, p.telefono, p.pais, pa.motivoconsulta from paciente pa, persona p where idpaciente=$1 and pa.idpersona=p.idpersona', [id]);
+        const response = await pool.query('select pa.idpaciente, ps.idpsicologo, p.nombres, p.apellidos, p.telefono, p.pais, pa.motivoconsulta from paciente pa, persona p, psicologos ps where idpaciente=$1 and pa.idpersona=p.idpersona and pa.idpsicologo = ps.idpsicologo', [id]);
         return res.status(200).json(response.rows);
     } catch (e) {
         console.log(e);
