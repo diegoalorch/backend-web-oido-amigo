@@ -4,6 +4,18 @@ const bcrypt = require('bcryptjs');
 
 const userCtr = {}
 
+
+userCtr.getAccess = async(req, res)=>{
+    try{
+        const id = parseInt(req.params.id);
+        const resp = await pool.query('select * from accesos where idrol =$1',[id]);
+        return res.status(200).json(resp.rows);
+    }catch(e){
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
 userCtr.createUser = async(req, res)=>{
 
     try {
