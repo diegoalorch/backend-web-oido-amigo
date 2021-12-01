@@ -3,7 +3,9 @@ const morgan = require('morgan')
 const personaRoutes = require('./routes/persona.routes')
 const userRoutes = require('./routes/user.routes')
 const psicologoRoutes = require('./routes/psicologo.routes')
+const psicologosRoutes = require('./routes/psicologos.routes')
 const authRoutes = require('./routes/auth.routes')
+const pacienteRoutes = require('./routes/paciente.routes')
 
 
 const app = express();
@@ -23,6 +25,8 @@ app.get('/', function(req, res, next) {
 
 app.use('/api/personas', personaRoutes);
 app.use('/api/psicologo', psicologoRoutes);
+app.use('/api/psicologos', psicologosRoutes);
+app.use('/api/paciente', pacienteRoutes);
 
 app.use('/api/auth/users', userRoutes);
 app.use('/api/auth', authRoutes);

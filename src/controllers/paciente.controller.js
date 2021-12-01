@@ -1,10 +1,10 @@
 const pool = require('../database')
-// const helpers = require('../libs/helpers');
+    // const helpers = require('../libs/helpers');
 
 const pacienteCtr = {}
 
 // LISTAR TODAS LAS PERSONAS NO ASIGNADAS
-pacienteCtr.readAllPaciente = async(req, res) => {
+pacienteCtr.readNoAsignadoPaciente = async(req, res) => {
     try {
         const response = await pool.query('select pa.idpaciente, p.nombres, p.apellidos, p.telefono, p.pais from paciente pa, persona p where pa.idpersona=p.idpersona and idpsicologo is null order by nombres asc');
         return res.status(200).json(response.rows);
@@ -29,7 +29,7 @@ pacienteCtr.readAsignadoPaciente = async(req, res) => {
 pacienteCtr.readPaciente = async(req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const response = await pool.query('select pa.idpaciente, ps.idpsicologo, p.nombres, p.apellidos, p.telefono, p.pais, pa.motivoconsulta from paciente pa, persona p, psicologos ps where idpaciente=$1 and pa.idpersona=p.idpersona and pa.idpsicologo = ps.idpsicologo', [id]);
+        const response = await pool.query('select pa.idpaciente, p.nombres, p.apellidos, p.telefono, p.pais, pa.motivoconsulta from paciente pa, persona p where idpaciente=$1 and pa.idpersona=p.idpersona', [id]);
         return res.status(200).json(response.rows);
     } catch (e) {
         console.log(e);
