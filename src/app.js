@@ -1,9 +1,11 @@
 const express = require('express')
 const morgan = require('morgan')
+
+
 const personaRoutes = require('./routes/persona.routes')
 const userRoutes = require('./routes/user.routes')
-const psicologoRoutes = require('./routes/psicologo.routes')
 const psicologosRoutes = require('./routes/psicologos.routes')
+const psicologoRoutes = require('./routes/psicologos.routes')
 const authRoutes = require('./routes/auth.routes')
 const pacienteRoutes = require('./routes/paciente.routes')
 
