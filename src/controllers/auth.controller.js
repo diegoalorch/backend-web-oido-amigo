@@ -19,7 +19,9 @@ authCtr.login = async (req, res)=>{
            if(await bcrypt.compare(password, passold)){
                 const usuario = {
                     idusuario : response.rows[0].idusuario,                    
-                    username : response.rows[0].username
+                    username : response.rows[0].username,
+                    idrol : response.rows[0].idrol,
+                    idpsicologo : response.rows[0].idpsicologo
                 }
                 const accessToken = jwt.sign({usuario}, secret, {expiresIn:'600s'});
                 const refreshToken = jwt.sign({usuario}, refreshTokenSecret);
