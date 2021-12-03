@@ -89,4 +89,28 @@ pacienteCtr.eliminarConsulta = async(req, res) => {
     }
 }
 
+//CREAR SESION
+pacienteCtr.createSesion = async(req, res) => {
+    try {
+        const { link, fecha, hora, idpaciente, idpsicologo, idsesion } = req.body;
+        await pool.query('insert into cronograma(link, fecha, hora, idpaciente, idpsicologo, idsesion) values($1,$2,$3,$4,$5,$6)', [link, fecha, hora, idpaciente, idpsicologo, idsesion]); // returning devuelve todo los datos
+        return res.status(200).json(`Cronograma creado correctamente...!`);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
+//UPDATE SESION
+pacienteCtr.updateSesion = async(req, res)=>{
+    try{
+        const id = parseInt(req.params.id);
+        await pool.query('update cronograma set estado = 1 where idcronograma = $1', [id]);
+        return res.status(200).json(`Sesion Finalizado exitosamente...!`)
+    }catch (e){
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
 module.exports = pacienteCtr;
