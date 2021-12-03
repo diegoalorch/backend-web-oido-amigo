@@ -29,7 +29,7 @@ psicologosCtr.readNomApePsicologos = async(req, res) => {
 psicologosCtr.buscarPsicologoID = async(req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const response = await pool.query('select p.idpsicologo, pe.nombres, pe.apellidos, p.universidad, p.gradoacademico from psicologos p, persona pe where p.idpsicologo=$1 and p.idpersona=pe.idpersona', [id]);
+        const response = await pool.query('select p.idpsicologo, pe.nombres, pe.apellidos, pe.dni, pe.correo, pe.telefono, pe.pais, p.universidad, p.gradoacademico from psicologos p, persona pe where p.idpsicologo=$1 and p.idpersona=pe.idpersona', [id]);
         return res.status(200).json(response.rows);
     } catch (e) {
         console.log(e);
