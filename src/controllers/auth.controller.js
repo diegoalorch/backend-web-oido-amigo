@@ -23,7 +23,7 @@ authCtr.login = async (req, res)=>{
                     idrol : response.rows[0].idrol,
                     idpsicologo : response.rows[0].idpsicologo
                 }
-                const accessToken = jwt.sign({usuario}, secret, {expiresIn:'600s'});
+                const accessToken = jwt.sign({usuario}, secret, {expiresIn:'7200s'});
                 const refreshToken = jwt.sign({usuario}, refreshTokenSecret);
                 refreshTokens.push(refreshToken);
                 
