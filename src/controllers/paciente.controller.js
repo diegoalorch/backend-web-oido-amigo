@@ -113,4 +113,89 @@ pacienteCtr.updateSesion = async(req, res)=>{
     }
 }
 
+//select sesion 1
+pacienteCtr.readSesion1 = async(req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const response = await pool.query('select * from cronograma where idpaciente = $1 and idsesion = 1;', [id]);
+        return res.status(200).json(response.rows);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
+//select sesion 2
+pacienteCtr.readSesion2 = async(req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const response = await pool.query('select * from cronograma where idpaciente = $1 and idsesion = 2;', [id]);
+        return res.status(200).json(response.rows);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
+//select sesion 3
+pacienteCtr.readSesion3 = async(req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const response = await pool.query('select * from cronograma where idpaciente = $1 and idsesion = 3;', [id]);
+        return res.status(200).json(response.rows);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
+//select Reporte 1
+pacienteCtr.readreporte1 = async(req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const response = await pool.query('select pe.nombres, pe.apellidos, pe.correo, pae.nombres, pae.apellidos, r.fecha, s.sesion, pr.obserg, pr.ante, pr.problem, pr.accreal, pr.conclu, pr.recotare from reportes r, preguntas pr, medio m, sesion s, persona pe, psicologos ps, paciente pa, persona pae where r.idpaciente = $1 and s.idsesion = 1 and r.idreportes = pr.idreportes and r.idmedio = m.idmedio and r.idsesion = s.idsesion and pe.idpersona = ps.idpersona and pae.idpersona = pa.idpersona and r.idpaciente = pa.idpaciente and r.idpsicologo = ps.idpsicologo;', [id]);
+        return res.status(200).json(response.rows);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
+//select Reporte 2
+pacienteCtr.readreporte2 = async(req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const response = await pool.query('select pe.nombres, pe.apellidos, pe.correo, pae.nombres, pae.apellidos, r.fecha, s.sesion, pr.obserg, pr.ante, pr.problem, pr.accreal, pr.conclu, pr.recotare from reportes r, preguntas pr, medio m, sesion s, persona pe, psicologos ps, paciente pa, persona pae where r.idpaciente = $1 and s.idsesion = 2 and r.idreportes = pr.idreportes and r.idmedio = m.idmedio and r.idsesion = s.idsesion and pe.idpersona = ps.idpersona and pae.idpersona = pa.idpersona and r.idpaciente = pa.idpaciente and r.idpsicologo = ps.idpsicologo;', [id]);
+        return res.status(200).json(response.rows);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
+//select Reporte 3
+pacienteCtr.readreporte3 = async(req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const response = await pool.query('select pe.nombres, pe.apellidos, pe.correo, pae.nombres, pae.apellidos, r.fecha, s.sesion, pr.obserg, pr.ante, pr.problem, pr.accreal, pr.conclu, pr.recotare from reportes r, preguntas pr, medio m, sesion s, persona pe, psicologos ps, paciente pa, persona pae where r.idpaciente = $1 and s.idsesion = 3 and r.idreportes = pr.idreportes and r.idmedio = m.idmedio and r.idsesion = s.idsesion and pe.idpersona = ps.idpersona and pae.idpersona = pa.idpersona and r.idpaciente = pa.idpaciente and r.idpsicologo = ps.idpsicologo;', [id]);
+        return res.status(200).json(response.rows);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
+//select Reporte Final
+pacienteCtr.readreporteF = async(req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const response = await pool.query('select pe.nombres, pe.apellidos, pe.correo, pae.nombres, pae.apellidos, r.fecha, s.sesion, pr.obserg, pr.ante, pr.problem, pr.accreal, pr.conclu, pr.recotare from reportes r, preguntas pr, medio m, sesion s, persona pe, psicologos ps, paciente pa, persona pae where r.idpaciente = $1 and s.idsesion = 4 and r.idreportes = pr.idreportes and r.idmedio = m.idmedio and r.idsesion = s.idsesion and pe.idpersona = ps.idpersona and pae.idpersona = pa.idpersona and r.idpaciente = pa.idpaciente and r.idpsicologo = ps.idpsicologo;', [id]);
+        return res.status(200).json(response.rows);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
+
 module.exports = pacienteCtr;

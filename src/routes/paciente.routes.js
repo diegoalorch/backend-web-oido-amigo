@@ -22,6 +22,16 @@ router.put('/update-sesion/:id', checkTokenPsicologo, pacienteCtr.updateSesion);
 //Paciente
 router.post('/agregar-consulta',  pacienteCtr.createPaciente); // Crear paciente
 
+//Sesiones
+router.get('/sesion1/:id', checkTokenPsicologo, pacienteCtr.readSesion1);//Sesion1
+router.get('/sesion2/:id', checkTokenPsicologo, pacienteCtr.readSesion2);//Sesion2
+router.get('/sesion3/:id', checkTokenPsicologo, pacienteCtr.readSesion3);//Sesion3
+
+//Reportes
+router.get('/reporte1/:id', checkTokenPsicologo, pacienteCtr.readreporte1);//Reporte1
+router.get('/reporte2/:id', checkTokenPsicologo, pacienteCtr.readreporte2);//Reporte2
+router.get('/reporte3/:id', checkTokenPsicologo, pacienteCtr.readreporte3);//Reporte3
+router.get('/reportef/:id', checkTokenPsicologo, pacienteCtr.readreporteF);//Reporte Final
 
 
 module.exports = router;
