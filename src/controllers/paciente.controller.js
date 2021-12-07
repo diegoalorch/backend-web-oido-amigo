@@ -89,11 +89,35 @@ pacienteCtr.eliminarConsulta = async(req, res) => {
     }
 }
 
-//CREAR SESION
-pacienteCtr.createSesion = async(req, res) => {
+//CREAR SESION1
+pacienteCtr.createSesion1 = async(req, res) => {
     try {
-        const { link, fecha, hora, idpaciente, idpsicologo, idsesion } = req.body;
-        await pool.query('insert into cronograma(link, fecha, hora, idpaciente, idpsicologo, idsesion) values($1,$2,$3,$4,$5,$6)', [link, fecha, hora, idpaciente, idpsicologo, idsesion]); // returning devuelve todo los datos
+        const { link, fecha, hora, idpaciente, idpsicologo } = req.body;
+        await pool.query('insert into cronograma(link, fecha, hora, idpaciente, idpsicologo, idsesion, estado) values($1,$2,$3,$4,$5,1,0);', [link, fecha, hora, idpaciente, idpsicologo]);
+        return res.status(200).json(`Cronograma creado correctamente...!`);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
+//CREAR SESION2
+pacienteCtr.createSesion2 = async(req, res) => {
+    try {
+        const { link, fecha, hora, idpaciente, idpsicologo } = req.body;
+        await pool.query('insert into cronograma(link, fecha, hora, idpaciente, idpsicologo, idsesion, estado) values($1,$2,$3,$4,$5,2,0);', [link, fecha, hora, idpaciente, idpsicologo]);
+        return res.status(200).json(`Cronograma creado correctamente...!`);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
+//CREAR SESION3
+pacienteCtr.createSesion3 = async(req, res) => {
+    try {
+        const { link, fecha, hora, idpaciente, idpsicologo } = req.body;
+        await pool.query('insert into cronograma(link, fecha, hora, idpaciente, idpsicologo, idsesion, estado) values($1,$2,$3,$4,$5,3,0);', [link, fecha, hora, idpaciente, idpsicologo]);
         return res.status(200).json(`Cronograma creado correctamente...!`);
     } catch (e) {
         console.log(e);
@@ -149,11 +173,65 @@ pacienteCtr.readSesion3 = async(req, res) => {
     }
 }
 
+//Create Reporte 1
+pacienteCtr.createReporte1 = async(req, res) => {
+    try {
+        const { idpsicologo, idpaciente, idmedio, fecha, obserg, ante, problem, accreal, conclu, recotare} = req.body;
+        const result = await pool.query('insert into reportes(idpsicologo, idpaciente, idmedio, fecha, idsesion) values($1,$2,$3,$4,1) returning *', [idpsicologo, idpaciente, idmedio, fecha]); // returning devuelve todo los datos
+        await pool.query('insert into preguntas(obserg, ante, problem, accreal, conclu, recotare, idreportes) values($1,$2,$3,$4,$5,$6,$7)', [obserg, ante, problem, accreal, conclu, recotare, result.rows[0].idreportes]);
+        return res.status(200).json(`Reporte creado correctamente...!`);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
+//Create Reporte 2
+pacienteCtr.createReporte2 = async(req, res) => {
+    try {
+        const { idpsicologo, idpaciente, idmedio, fecha, obserg, ante, problem, accreal, conclu, recotare} = req.body;
+        const result = await pool.query('insert into reportes(idpsicologo, idpaciente, idmedio, fecha, idsesion) values($1,$2,$3,$4,2) returning *', [idpsicologo, idpaciente, idmedio, fecha]); // returning devuelve todo los datos
+        await pool.query('insert into preguntas(obserg, ante, problem, accreal, conclu, recotare, idreportes) values($1,$2,$3,$4,$5,$6,$7)', [obserg, ante, problem, accreal, conclu, recotare, result.rows[0].idreportes]);
+        return res.status(200).json(`Reporte creado correctamente...!`);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
+//Create Reporte 3
+pacienteCtr.createReporte3 = async(req, res) => {
+    try {
+        const { idpsicologo, idpaciente, idmedio, fecha, obserg, ante, problem, accreal, conclu, recotare} = req.body;
+        const result = await pool.query('insert into reportes(idpsicologo, idpaciente, idmedio, fecha, idsesion) values($1,$2,$3,$4,3) returning *', [idpsicologo, idpaciente, idmedio, fecha]); // returning devuelve todo los datos
+        await pool.query('insert into preguntas(obserg, ante, problem, accreal, conclu, recotare, idreportes) values($1,$2,$3,$4,$5,$6,$7)', [obserg, ante, problem, accreal, conclu, recotare, result.rows[0].idreportes]);
+        return res.status(200).json(`Reporte creado correctamente...!`);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
+//Create Reporte Final
+pacienteCtr.createReportef = async(req, res) => {
+    try {
+        const { idpsicologo, idpaciente, idmedio, fecha, obserg, ante, problem, accreal, conclu, recotare} = req.body;
+        const result = await pool.query('insert into reportes(idpsicologo, idpaciente, idmedio, fecha, idsesion) values($1,$2,$3,$4,4) returning *', [idpsicologo, idpaciente, idmedio, fecha]); // returning devuelve todo los datos
+        await pool.query('insert into preguntas(obserg, ante, problem, accreal, conclu, recotare, idreportes) values($1,$2,$3,$4,$5,$6,$7)', [obserg, ante, problem, accreal, conclu, recotare, result.rows[0].idreportes]);
+        return res.status(200).json(`Reporte creado correctamente...!`);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
+
+
 //select Reporte 1
 pacienteCtr.readreporte1 = async(req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const response = await pool.query('select pe.nombres, pe.apellidos, pe.correo, pae.nombres, pae.apellidos, r.fecha, s.sesion, pr.obserg, pr.ante, pr.problem, pr.accreal, pr.conclu, pr.recotare from reportes r, preguntas pr, medio m, sesion s, persona pe, psicologos ps, paciente pa, persona pae where r.idpaciente = $1 and s.idsesion = 1 and r.idreportes = pr.idreportes and r.idmedio = m.idmedio and r.idsesion = s.idsesion and pe.idpersona = ps.idpersona and pae.idpersona = pa.idpersona and r.idpaciente = pa.idpaciente and r.idpsicologo = ps.idpsicologo;', [id]);
+        const response = await pool.query('select pe.nombres as nompaciente, pe.apellidos as apelpaciente, pe.correo, pae.nombres, pae.apellidos, r.fecha, s.sesion, pr.obserg, pr.ante, pr.problem, pr.accreal, pr.conclu, pr.recotare from reportes r, preguntas pr, medio m, sesion s, persona pe, psicologos ps, paciente pa, persona pae where r.idpaciente = $1 and s.idsesion = 1 and r.idreportes = pr.idreportes and r.idmedio = m.idmedio and r.idsesion = s.idsesion and pe.idpersona = ps.idpersona and pae.idpersona = pa.idpersona and r.idpaciente = pa.idpaciente and r.idpsicologo = ps.idpsicologo;', [id]);
         return res.status(200).json(response.rows);
     } catch (e) {
         console.log(e);
