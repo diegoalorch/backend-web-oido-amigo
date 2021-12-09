@@ -89,6 +89,20 @@ pacienteCtr.eliminarConsulta = async(req, res) => {
     }
 }
 
+//Paciente Finalizado
+
+pacienteCtr.finalizarPaciente = async(req, res) => {
+    try {
+        const id = parseInt(req.params.id);        
+        await pool.query('update paciente set idpsicologo = null where idpaciente = $1', [id]);
+
+        return res.status(200).json(`Paciente se ha actualizado correctamente...!`);
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json('Internal Server error...!');
+    }
+}
+
 //CREAR SESION1
 pacienteCtr.createSesion1 = async(req, res) => {
     try {

@@ -15,7 +15,9 @@ router.put('/derivar-paciente/:id', checkTokenMonitor, pacienteCtr.updatePacient
 router.delete('/eliminar-consulta/:id', checkTokenMonitor, pacienteCtr.eliminarConsulta); // Eliminar La Consulta
 
 //Psicologo
-router.get('/paciente-asignado/:id', checkTokenPsicologo, pacienteCtr.readPacienteAsigPsi);//Paciente asignado a psicologo
+router.get('/paciente-asignado/:id', checkTokenPsicologo, pacienteCtr.readPacienteAsigPsi);
+router.put('/paciente-fin/:id', checkTokenPsicologo, pacienteCtr.finalizarPaciente);//Paciente asignado a psicologo
+
 router.post('/create-sesion1', checkTokenPsicologo, pacienteCtr.createSesion1); // Crear Sesion1
 router.post('/create-sesion2', checkTokenPsicologo, pacienteCtr.createSesion2); // Crear Sesion2
 router.post('/create-sesion3', checkTokenPsicologo, pacienteCtr.createSesion3); // Crear Sesion3
